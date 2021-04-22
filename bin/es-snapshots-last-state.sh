@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 while getopts ":h:p:r:" opt; do
   case $opt in
-    a) ES_HOST="$OPTARG"
+    h) ES_HOST="$OPTARG"
     ;;
     p) ES_PORT="$OPTARG"
     ;;
