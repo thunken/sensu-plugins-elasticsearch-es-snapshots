@@ -28,7 +28,7 @@ if [ ${STATUS_CODE} != "200" ]; then
   cat ${STATUS_TMP_FILE}
   exit 2;
 fi
-rm ${STATUS_CODE_TMP_FILE}
+rm ${STATUS_TMP_FILE}
 
 SNAPSHOTS=$(curl -s -X GET "${ES_HOST}:${ES_PORT}/_cat/snapshots/${ES_REPOSITORY}?format=JSON&h=id,start_epoch,end_epoch,status,reason&s=start_epoch&pretty")
 if [ $? != 0 ]; then
