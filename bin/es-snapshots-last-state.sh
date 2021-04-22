@@ -17,11 +17,11 @@ ES_HOST=${ES_HOST:-localhost}
 ES_PORT=${ES_PORT:-9200}
 ES_REPOSITORY=${ES_REPOSITORY:-es_repository}
 
-STATUS_CODE_TMP_FILE="status_code.tmp"
-STATUS_CODE=$(curl -o ${STATUS_CODE_TMP_FILE} -L -s -w "%{http_code}" "${ES_HOST}:${ES_PORT}/_cat/snapshots/${ES_REPOSITORY}?format=JSON&h=id,start_epoch,end_epoch,status,reason&s=start_epoch&pretty")
+STATUS_TMP_FILE="/tmp/status_contents.tmp"
+STATUS_CODE=$(curl -o ${STATUS_TMP_FILE} -L -s -w "%{http_code}" "${ES_HOST}:${ES_PORT}/_cat/snapshots/${ES_REPOSITORY}?format=JSON&h=id,start_epoch,end_epoch,status,reason&s=start_epoch&pretty")
 if [ ${STATUS_CODE} != "200" ]; then
   echo "Can't get snapshot state. Reason:"
-  cat ${STATUS_CODE_TMP_FILE}
+  cat ${STATUS_TMP_FILE}
   exit 2;
 fi
 rm ${STATUS_CODE_TMP_FILE}
